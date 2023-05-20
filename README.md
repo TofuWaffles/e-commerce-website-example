@@ -60,7 +60,7 @@ Listening on 127.0.0.1:3000
 
 The databases will be automatically created with the appropriate tables by the migrations upon startup.
 
-Simply open your browser and enter in the url "127.0.0.1:3000"
+Simply open your browser and enter in the url "http://127.0.0.1:3000/"
 
 
 ## Resources
