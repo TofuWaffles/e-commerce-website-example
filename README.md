@@ -1,4 +1,4 @@
-# Project Name
+# E-Commerse Website
 
 This is a sample e-commerce website demonstrating the Axum web framework and Sqlx drivers, written in Rust. Comes with a frontend written in HTML, CSS, and vanilla Javascript.
 
