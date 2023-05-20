@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to Makang Ikang</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html"><img src="/images/site/logo.png" alt="Company Logo"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li class="dropdown">
+          <a href="product.html">Products</a>
+          <!-- <div class="dropdown-content">
+            <a href="productseafood.html">Seafood</a><br>
+            <a href="productmeat.html">Meat</a><br>
+            <a href="productvegetable.html">Vegetable</a><br>
+            <a href="productfruit.html">Fruit</a><br>
+          </div> -->
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="banner">
+    <img src="images/index/banner.avif" alt="Banner Image">
+    <div class="banner-text">
+      <h1>Welcome to Makang Ikang</h1>
+      <p>Find the freshest seafood, meat, vegetables, and fruit from our store.</p>
+    </div>
+  </div>
+
+  <section class="featured-products">
+    <h2>Featured Products</h2>
+    <p>Grab them now!</p>
+    <div class="product-row" id="product-row">
+
+    </div>
+
+    <script type="text/javascript" src="../scripts/utils.js"></script>
+    <script type="text/javascript">
+      fetch("http://127.0.0.1:3000/get_products", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json",
+        }
+      })
+        .then((response) => response.json())
+        .then((products) => {
+          for (let i = 0; i < 4; i++) {
+            document.getElementById("product-row").innerHTML +=
+              `
+              <div class="product">
+                <img src="/images/products/${products[i].img_path}" alt="image of ${products[i].product_name}">
+                <div class="product-info">
+                  <div class="product-category">${products[i].product_category}</div>
+                  <div class="product-name">${products[i].product_name}</div>
+                  <div class="product-price">$${products[i].price}</div>
+                  <button
+                  class="add-to-cart"
+                  name="add-to-cart-submit"
+                  onclick="addToCart(${products[i].product_id}, 1)"
+                  type="submit">
+                  Add to Cart
+                  </button>
+              </div>
+              `;
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+    </script>
+  </section>
+
+  <footer>
+    <div class="logo">
+      <img src="/images/site/logo.png" alt="Company Logo">
+    </div>
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <div class="contact-row">
+        <i class="fas fa-map"></i>
+        <p>69, Jalan Ampang, Kuala Ampang,</p>
+        <p>50100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</p>
+      </div>
+      <div class="contact-row">
+        <i class="fas fa-phone-alt"></i>
+        <p>016-969 6969/ 03-41496969</p>
+      </div>
+      <div class="contact-row">
+        <i class="fas fa-clock"></i>
+        <p>Mon-Fri: 9am-5pm EST</p>
+      </div>
+    </div>
+    <div class="social-media">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 Makang Ikang</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>

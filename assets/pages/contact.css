@@ -1,0 +1,194 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("/images/site/background.jpg");
+  background-repeat:repeat;
+  opacity: 95%;
+}
+
+header {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background-color: #06170e;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+  height: auto;
+  width: 300px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin: 0 10px;
+}
+
+nav a {
+  color: #BFEF88;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #06170e;
+  font-size: 16px;
+  line-height: 30px;
+  min-width: 100px;
+  padding: 30px 30px 30px 30px;
+  z-index: 1;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.banner {
+  text-align: center;
+  background-image: url("images/site/cart-banner.avif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 4rem 0;
+}
+
+.banner h2 {
+  font-size: 30px;
+}
+
+/* Set up a flex container to hold the map and contact details */
+.columns {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+/* Style the map element */
+.column img {
+  margin-left: 30px;
+  margin-top: 80px;
+  flex: 1;
+  height: 76.5%;
+  object-fit: cover;
+  margin-right: 10px;
+  outline: solid 2px #BFEF88;
+}
+
+/* Style the contact details section */
+.column .contact-details {
+  background-color: #06170e;
+  text-align: center;
+  color: #BFEF88;
+  flex: 1;
+  width: 100%;
+  height: 70%;
+  margin-top: 80px;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding-right: 175px;
+  padding-left: 175px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+/* Style the form inputs */
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  background-color: #D7F4D2;
+  display: block;
+  width: 70%;
+  padding: 10px;
+  margin-right: 100px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Style the submit button */
+.contact-form button[type="submit"] {
+  display: block;
+  width: 72.5%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 100px;
+  margin-left: 100px;
+  background-color: #79DC78;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Style the footer */
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #06170e;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
+  
+.contact-info {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #BFEF88;
+  text-align: center;
+}
+  
+.contact-row {
+  display: flex;
+  font-size: 10px;
+  color: #BFEF88;
+  align-items: center;
+}
+  
+.contact-row i {
+  margin-right: 10px;
+  color: #BFEF88;
+}
+  
+.social-media {
+  display: flex;
+  justify-content: center;
+  margin: 3px 0;
+}
+  
+.social-media a {
+  color: #BFEF88;
+  display: inline-block;
+  margin: 0 10px;
+}
+  
+.footer-bottom {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #BFEF88;
+}
+  
+.footer-bottom p {
+  margin: 0;
+} 
+
+  
+  

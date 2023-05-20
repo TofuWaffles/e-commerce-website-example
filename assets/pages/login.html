@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="loginandregister.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="left-column"></div>
+    <div class="right-column">
+      <h1>Login</h1>
+      <form id="login-form">
+        <div class="input-wrapper">
+          <input id="user_email" type="email" placeholder="Email">
+        </div>
+        <div class="input-wrapper">
+          <input id="user_password" type="password" placeholder="Password">
+        </div>
+        <div class="subtitle">
+          Don't have an account? <span><a href="register.html">Register now</a></span>
+        </div>
+        <button name="login-submit" type="submit">Login</button>
+      </form>
+      <script type="text/javascript">
+        async function login(event) {
+
+          event.preventDefault()
+
+          const user_email = (document.getElementById("user_email")).value;
+          const user_password = (document.getElementById("user_password")).value;
+
+          const requestUser = {
+            user_email: user_email,
+            user_password: user_password,
+          }
+
+          fetch("http://127.0.0.1:3000/login", {
+            method: "POST",
+            body: JSON.stringify(requestUser),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => {
+              if (response.status == 200) {
+                response.text().then(async (responseToken) => {
+                  document.cookie = `access_token=[${responseToken}]`;
+                  document.getElementById("login-response-span").innerHTML = "Successfully logged in<br>Redirecting you to the main page in a few seconds...";
+                  await new Promise((resolve) => setTimeout(resolve, 3000));  // Delay for 3 seconds
+                  window.location.replace("/");
+                })
+              } else {
+                response.text().then((responseMessage) => {
+                  document.getElementById("login-response-span").innerHTML = responseMessage;
+                })
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            })
+        }
+
+        document.querySelector("button[name='login-submit']").addEventListener('click', login);
+      </script>
+      <span class="response-span" id="login-response-span"></span>
+    </div>
+  </div>
+</body>
+
+</html>

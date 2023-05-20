@@ -1,0 +1,110 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("/images/site/background.jpg");
+  background-repeat:repeat;
+  padding-top: 100px;
+}
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-summary {
+    flex: 1;
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+  }
+  
+  button {
+    background-color: #BFEF88;
+    margin-top: 20px;
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .cart-total {
+    background-color: white;
+    color: #333;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  /* Billing Page */
+  .billing-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: #06170e;
+    box-shadow:#77DD66;
+    padding: 1rem;
+    padding-top: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-info,
+  .personal-info {
+    text-align: center;
+    color: #D7F4D2;
+    flex: 1;
+    margin: 0 1rem;
+  }
+  
+  .no-border {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .no-border td {
+    padding: 0.5rem 0;
+  }
+  
+  .no-border input {
+    width: 98%;
+    padding: 10px;
+    background-color: #D7F4D2;
+    border: solid 2px #77DD66;
+    outline: none;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"], textarea {
+  width: 98%;
+  padding: 8px;
+  margin: 4px 0 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #77DD66;
+  text-align: center;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type="submit"]:hover, button:hover {
+  background-color: #45a049;
+  color: #fff;
+}
+
+.logo {
+  width: 700px;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  align-self: center;
+}
+  

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="billing.css">
+  <title>Billing Page</title>
+</head>
+<body>
+
+  <section class="billing-container">
+    <img class="logo" src="/images/site/logo.png" alt="Company Logo"><br>
+    <div class="card-info">
+      <h2>Card Information</h2>
+      <table class="no-border">
+        <tr>
+          <td colspan="2">Card Number</td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="text" placeholder="0000 0000 0000 0000"></td>
+        </tr>
+        <tr>
+          <td>Month/Year</td>
+          <td>CVV Code</td>
+        </tr>
+        <tr>
+          <td><input type="text" placeholder="MM/YY"></td>
+          <td><input type="text" placeholder="123"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="personal-info">
+      <h2>Personal Information</h2>
+      <table class="no-border">
+        <tr>
+          <td>First Name</td>
+          <td>Last Name</td>
+        </tr>
+        <tr>
+          <td><input type="text" placeholder="First Name"></td>
+          <td><input type="text" placeholder="Last Name"></td>
+        </tr>
+        <tr>
+          <td colspan="2">Country</td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="text" placeholder="Country"></td>
+        </tr>
+        <tr>
+          <td>City</td>
+          <td>Zip Code</td>
+        </tr>
+        <tr>
+          <td><input type="text" placeholder="City"></td>
+          <td><input type="text" placeholder="Zip Code"></td>
+        </tr>
+        <tr>
+          <td colspan="2">Email</td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="text" placeholder="Email"></td>
+        </tr>
+        <tr>
+          <td colspan="2">Phone Number</td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="text" placeholder="Phone Number"></td>
+        </tr>
+      </table>
+      <button onclick="createOrder()">Pay Now</button>
+    </div>
+
+    <script type="text/javascript" src="../scripts/utils.js"></script>
+    <script type="text/javascript">
+      async function createOrder() {
+        const token = getBearerToken();
+
+        fetch("http://127.0.0.1:3000/create_order", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Authorization": `Bearer ${token}`,
+          }
+        })
+          .then((response) => {
+            if (response.status == 400 || response.status == 401) {
+              window.location.replace("/login.html");
+            } else {
+              response.text().then(async (responseMessage) => {
+                window.alert(responseMessage);
+                await new Promise((resolve) => setTimeout(resolve, 5));
+                window.location.replace("/");
+              })
+            }
+          })
+      }
+    </script>
+  </section>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

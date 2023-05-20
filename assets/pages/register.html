@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="loginandregister.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="register-box">
+      <img class="logo" src="/images/site/logo.png" alt="Company Logo">
+      <h1>Register</h1>
+      <div class="subheading">
+        <p>Fill out the form below to create your account.</p>
+      </div>
+
+      <form id="new-user-form">
+        <div class="input-wrapper">
+          <input id="username" type="text" placeholder="Username">
+        </div>
+        <div class="input-wrapper">
+          <input id="user_email" type="email" placeholder="Email">
+        </div>
+        <div class="input-wrapper">
+          <input id="user_password" type="password" placeholder="Password">
+        </div>
+        <div class="subtitle">
+          Already have an account? <a href="login.html">Login now</a>.
+        </div>
+        <button name="register-submit" type="submit">Register</button>
+        <script type="text/javascript">
+          async function createUser(event) {
+
+            event.preventDefault();
+
+            const username = (document.getElementById("username")).value;
+            const user_email = (document.getElementById("user_email")).value;
+            const user_password = (document.getElementById("user_password")).value;
+
+            const newUser = {
+              username: username,
+              user_email: user_email,
+              user_password: user_password,
+            };
+
+            fetch("http://127.0.0.1:3000/create_user", {
+              method: "POST",
+              body: JSON.stringify(newUser),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => {
+                if (response.status == 200) {
+                  response.text().then(async (responseMessage) => {
+                    document.getElementById("create-user-response-span").innerHTML =
+                      `${responseMessage}<br>Redirecting you to the login page in a few seconds...`;
+                    await new Promise((resolve) => setTimeout(resolve, 3000));  // Delay for 3 seconds
+                    window.location.replace("/login.html");
+                  })
+                } else {
+                  response.text().then((responseMessage) => {
+                    document.getElementById("create-user-response-span").innerHTML = responseMessage;
+                  })
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          }
+
+          document.querySelector("button[name='register-submit']").addEventListener('click', createUser);
+        </script>
+      </form>
+      <span class="response-span" id="create-user-response-span"></span>
+    </div>
+  </div>
+
+</body>
+
+</html>

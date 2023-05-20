@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+  <title>Address</title>
+  <link rel="stylesheet" href="profileaddress.css">
+</head>
+
+<body>
+
+  <!-- Header and navigation bar -->
+  <header>
+    <div class="logo">
+      <a href="index.html"><img src="/images/site/logo.png" alt="Company Logo"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li class="dropdown">
+          <a href="product.html">Product</a>
+          <!-- <div class="dropdown-content">
+            <a href="productseafood.html">Seafood</a><br>
+            <a href="productmeat.html">Meat</a><br>
+            <a href="productvegetable.html">Vegetable</a><br>
+            <a href="productfruit.html">Fruit</a><br>
+          </div> -->
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Banner section -->
+  <div class="banner">
+    <h1>Addresses</h1>
+    <h3>Save your addresses here!</h3>
+  </div>
+
+  <!-- Profile menu section -->
+  <section id="addresses-section" class="profile">
+    <div class="profile-menu">
+      <ul>
+        <li><a href="profile.html">Personal Info</a></li>
+        <li class="active"><a href="profileaddress.html">Address</a></li>
+      </ul>
+    </div>
+    <div id="addresses-div">
+      <div class="profile-info">
+        <h2>New Address</h2>
+        <form>
+          <label for="new-unit">Unit</label>
+          <input type="text" id="new-unit" name="new-unit">
+
+          <label for="new-street">Street</label>
+          <input type="text" id="new-street" name="new-street">
+
+          <label for="new-city">City</label>
+          <input type="text" id="new-city" name="new-city">
+
+          <label for="new-postal-code">Postal Code:</label>
+          <input type="text" id="new-postal-code" name="new-postal-code">
+
+          <label for="new-state-province">State/Province:</label>
+          <input type="text" id="new-state-province" name="new-state-province">
+
+          <label for="new-country">Country:</label>
+          <input type="text" id="new-country" name="new-country">
+
+          <button type="submit" onclick="createAddress(
+            document.getElementById('new-unit').value,
+            document.getElementById('new-street').value,
+            document.getElementById('new-city').value,
+            document.getElementById('new-postal-code').value,
+            document.getElementById('new-state-province').value,
+            document.getElementById('new-country').value
+          )">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script type="text/javascript" src="../scripts/utils.js"></script>
+  <script type="text/javascript">
+    const token = getBearerToken();
+
+    fetch("http://127.0.0.1:3000/get_addresses", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        if (response.status == 400 || response.status == 401) {
+          window.location.replace("/login.html");
+        } else {
+          response.json().then((addresses) => {
+            for (let i = 0; i < addresses.length; i++) {
+              document.getElementById("addresses-div").innerHTML +=
+                `
+                <div class="profile-info">
+                  <h2>Address #${i+1}</h2>
+                  <form>
+                    <label for="unit">Unit</label>
+                    <input type="text" id="unit-${i}" name="unit-${i}" value="${addresses[i].unit}" readonly>
+
+                    <label for="street">Street</label>
+                    <input type="text" id="street-${i}" name="unit-${i}" value="${addresses[i].street}" readonly>
+
+                    <label for="city">City</label>
+                    <input type="text" id="city-${i}" name="city-${i}" value="${addresses[i].city}" readonly>
+
+                    <label for="postal-code">Postal Code</label>
+                    <input type="text" id="postal-code-${i}" name="postal-code-${i}" value="${addresses[i].postal_code}" readonly>
+
+                    <label for="state-province">State/Province</label>
+                    <input type="text" id="state-province-${i}" name="state-province-${i}" value="${addresses[i].state_province}" readonly>
+
+                    <label for="country">Country</label>
+                    <input type="text" id="country-${i}" name="country-${i}" value="${addresses[i].country}" readonly>
+                  </form>
+                </div>
+                `
+            }
+          })
+        }
+      })
+      .catch ((error) => {
+        console.error("Error", error);
+      })
+  </script>
+
+  <script type="text/javascript" src="../scripts/utils.js"></script>
+  <script type="text/javascript">
+    async function createAddress(unit, street, city, postal_code, state_province, country) {
+
+      event.preventDefault();
+
+      const address = {
+        address_id: Number(0),
+        unit: String(unit),
+        street: String(street),
+        city: String(city),
+        postal_code: Number(postal_code),
+        state_province: String(state_province),
+        country: String(country),
+      }
+
+      const token = getBearerToken();
+
+      fetch("http://127.0.0.1:3000/create_address", {
+        method: "POST",
+        body: JSON.stringify(address),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        }
+      })
+        .then((response) => {
+          if (response.status == 400 || response.status == 401) {
+            window.location.replace("/login.html");
+          } else if (response.status == 200) {
+            response.text().then(async (responseMessage) => {
+              window.alert(responseMessage);
+              await new Promise((resolve) => setTimeout(resolve, 5));
+              location.reload();
+            })
+          } else {
+            window.alert("Something went wrong trying to save your address. Try logging in again");
+          }
+        })
+        .catch((error) => {
+          console.error("Error", error);
+        })
+    }
+  </script>
+
+  <!-- Footer section -->
+  <footer>
+    <div class="logo">
+      <img src="/images/site/logo.png" alt="Company Logo">
+    </div>
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <div class="contact-row">
+        <i class="fas fa-map"></i>
+        <p>69, Jalan Ampang, Kuala Ampang,</p>
+        <p>50100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</p>
+      </div>
+      <div class="contact-row">
+        <i class="fas fa-phone-alt"></i>
+        <p>016-969 6969/ 03-41496969</p>
+      </div>
+      <div class="contact-row">
+        <i class="fas fa-clock"></i>
+        <p>Mon-Fri: 9am-5pm EST</p>
+      </div>
+    </div>
+    <div class="social-media">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 Makang Ikang</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>

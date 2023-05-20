@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+  <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="index.html"><img src="/images/site/logo.png" alt="Company Logo"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li class="dropdown">
+          <a href="product.html">Product</a>
+          <!-- <div class="dropdown-content">
+              <a href="productseafood.html">Seafood</a><br>
+              <a href="productmeat.html">Meat</a><br>
+              <a href="productvegetable.html">Vegetable</a><br>
+              <a href="productfruit.html">Fruit</a><br>
+            </div> -->
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="banner">
+    <h1>Profile</h1>
+    <h3>Welcome to your Profile Page!</h3>
+  </div>
+
+  <!-- Profile menu section -->
+  <section class="profile">
+    <div class="profile-menu">
+      <ul>
+        <li class="active"><a href="#">Personal Info</a></li>
+        <li><a href="profileaddress.html">Address</a></li>
+      </ul>
+    </div>
+    <div id="personal-info" class="profile-info">
+      <h2>Personal Information</h2>
+      <!-- <form>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="user@example.com">
+
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" value="user123">
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" value="password123">
+
+          <button type="submit" onclick="save()">Save</button>
+        </form> -->
+    </div>
+  </section>
+
+  <script type="text/javascript" src="../scripts/utils.js"></script>
+  <script type="text/javascript">
+    let token = getBearerToken();
+
+    fetch("http://127.0.0.1:3000/get_personal_info", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((response) => {
+        if (response.status == 400 || response.status == 401) {
+          window.location.replace("/login.html");
+        } else if (response.status == 404) {
+          document.getElementById("personal-info").innerHTML +=
+            `
+            <form>
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first-name">
+
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last-name">
+
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender">
+                <option value="" selected disabled hidden>Select a gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+                <option value="PreferNotToSay">Prefer not to say</option>
+              </select>
+
+              <button
+              name="save-personal-info"
+              onclick="savePersonalDetails(
+                document.getElementById('first-name').value,
+                document.getElementById('last-name').value,
+                document.getElementById('gender').value
+              )"
+              type="submit">
+              Save
+              </button>
+            </form>
+          `
+        } else if (response.status == 200) {
+          response.json().then((personalInfo) => {
+            document.getElementById("personal-info").innerHTML +=
+              `
+              <form>
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first-name" value="${personalInfo.first_name}">
+
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last-name" value="${personalInfo.last_name}">
+
+                <label for="gender">Gender: ${personalInfo.gender}</label>
+                <select id="gender" name="gender">
+                  <option value="" selected disabled hidden>Select a gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                  <option value="PreferNotToSay">Prefer not to say</option>
+                </select>
+
+                <button
+                name="save-personal-info"
+                onclick="savePersonalDetails(
+                  document.getElementById('first-name').value,
+                  document.getElementById('last-name').value,
+                  document.getElementById('gender').value
+                )"
+                type="submit">
+                Save
+                </button>
+              </form>
+              `
+          })
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+  </script>
+
+  <script type="text/javascript" src="../scripts/utils.js"></script>
+  <script type="text/javascript">
+    async function savePersonalDetails(first_name, last_name, gender) {
+
+      event.preventDefault();
+
+      const personalInfo = {
+        first_name: String(first_name),
+        last_name: String(last_name),
+        gender: String(gender),
+      };
+
+      const token = getBearerToken();
+
+      fetch("http://127.0.0.1:3000/add_personal_info", {
+        method: "POST",
+        body: JSON.stringify(personalInfo),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        }
+      }) 
+        .then((response) => {
+          if (response.status == 400 || response.status == 401) {
+            window.location.replace("/login.html");
+          } else if (response.status == 200) {
+            response.text().then(async (responseMessage) => {
+              window.alert(responseMessage);
+              await new Promise((resolve) => setTimeout(resolve, 5));
+              location.reload();
+            })
+          } else {
+            window.alert("Something went wrong trying to save your details. Try logging in again");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+    }
+  </script>
+
+  <footer>
+    <div class="logo">
+      <img src="/images/site/logo.png" alt="Company Logo">
+    </div>
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <div class="contact-row">
+        <i class="fas fa-map"></i>
+        <p>69, Jalan Ampang, Kuala Ampang,</p>
+        <p>50100 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur</p>
+      </div>
+      <div class="contact-row">
+        <i class="fas fa-phone-alt"></i>
+        <p>016-969 6969/ 03-41496969</p>
+      </div>
+      <div class="contact-row">
+        <i class="fas fa-clock"></i>
+        <p>Mon-Fri: 9am-5pm EST</p>
+      </div>
+    </div>
+    <div class="social-media">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 Makang Ikang</p>
+    </div>
+  </footer>
+</body>
+
+</html>

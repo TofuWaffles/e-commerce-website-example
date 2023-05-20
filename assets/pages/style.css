@@ -1,0 +1,232 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("/images/site/background.jpg");
+    background-repeat:repeat;
+  }
+  
+  header {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #06170e;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo img {
+    height: auto;
+    width: 300px;
+  }
+  
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    margin: 0 10px;
+  }
+  
+  nav a {
+    color: #BFEF88;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #06170e;
+    font-size: 16px;
+    line-height: 30px;
+    min-width: 100px;
+    padding: 30px 30px 30px 30px;
+    z-index: 1;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .banner {
+    position: relative;
+    margin: 20px 0;
+    }
+    
+    .banner img {
+    display: block;
+    width: 100%;
+    height: 750px;
+    }
+    
+    .banner-text {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    text-align: right;
+    color: #fff;
+    }
+    
+    .banner-text h1 {
+    font-size: 3rem;
+    margin: 0;
+    }
+    
+    .banner-text p {
+    font-size: 1.5rem;
+    margin: 10px 0 0;
+    }
+    
+    .featured-products {
+    padding: 30px;
+    background-color: #fff;
+    opacity: 95%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .featured-products h2 {
+    color: #092215;
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+    }
+    
+    .featured-products p {
+    color: #185a37;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 10px 0 30px;
+    }
+    
+    .product-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    }
+    
+    .product {
+    width: 23%;
+    margin-bottom: 30px;
+    background-color: #092215;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    }
+    
+    .product-info {
+    color: #79DC78;
+    text-align: center;
+    padding: 10px;
+    }
+    
+    .product-category {
+    color: #97E47E;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    }
+    
+    .product-name {
+    color: #BFEF88;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    }
+    
+    .product-price {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+    }
+    
+    .add-to-cart {
+    display: block;
+    width: 100%;
+    background-color: #E4F78F;
+    color: #092215;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    }
+    
+    .add-to-cart:hover {
+    background-color: #185a37;
+    color: #fff;
+    }
+    
+    footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #06170e;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-info {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #BFEF88;
+    text-align: center;
+    }
+    
+    .contact-row {
+    display: flex;
+    font-size: 10px;
+    color: #BFEF88;
+    align-items: center;
+    }
+    
+    .contact-row i {
+    margin-right: 10px;
+    color: #BFEF88;
+    }
+    
+    .social-media {
+    display: flex;
+    justify-content: center;
+    margin: 3px 0;
+    }
+    
+    .social-media a {
+    color: #BFEF88;
+    display: inline-block;
+    margin: 0 10px;
+    }
+    
+    .footer-bottom {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #BFEF88;
+    }
+    
+    .footer-bottom p {
+    margin: 0;
+    } 
+  
