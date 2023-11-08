@@ -9,8 +9,6 @@ This package is meant to be an example/reference for beginners on how they might
 
 The project aims to demonstrate the development of a full-stack web application using Rust for the backend and HTML, CSS, and JavaScript for the frontend. It leverages the Axum web framework in Rust to create a RESTful API and serves static HTML, CSS, and JavaScript files as the frontend interface.
 
-I made the authentication mechanism myself using a combination of Rust's Arc smart pointer, a mutex lock, and a hashmap, since there is no obvious solution provided by Axum at the time of writing this.
-
 
 ## Requirements
 
