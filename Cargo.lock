@@ -375,6 +375,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "03d8c417d7a8cb362e0c37e5d815f5eb7c37f79ff93707329d5a194e42e54ca0"
 
 [[package]]
+name = "e-commerce-website-example"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "chrono",
+ "dotenv",
+ "http",
+ "jsonwebtoken",
+ "pwhash",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "sqlx-core",
+ "tokio",
+ "tower-http",
+ "uuid",
+]
+
+[[package]]
 name = "either"
 version = "1.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -772,25 +791,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "abb12e687cfb44aa40f41fc3978ef76448f9b6038cad6aef4259d3c095a2382e"
 dependencies = [
  "cfg-if",
-]
-
-[[package]]
-name = "makangikang-website"
-version = "0.1.0"
-dependencies = [
- "axum",
- "chrono",
- "dotenv",
- "http",
- "jsonwebtoken",
- "pwhash",
- "serde",
- "serde_json",
- "sqlx",
- "sqlx-core",
- "tokio",
- "tower-http",
- "uuid",
 ]
 
 [[package]]
