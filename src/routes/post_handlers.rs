@@ -16,6 +16,8 @@ use crate::utils::auth;
 use crate::utils::jwt;
 use crate::utils::models;
 
+use super::ActiveUsers;
+
 pub async fn create_user(
     Extension(db_pool): Extension<Pool<Sqlite>>,
     Json(new_user): Json<models::NewUser>,
@@ -50,7 +52,7 @@ pub async fn create_user(
 
 pub async fn login(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     Json(request_user): Json<models::RequestUser>,
 ) -> Result<String, (StatusCode, String)> {
     // Emails are typically not case sensitive, so we lowercase them
@@ -88,7 +90,7 @@ pub async fn login(
 }
 
 pub async fn logout(
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
 ) -> Result<String, (StatusCode, String)> {
     auth::remove_active_user(authorization.token().to_owned(), active_users).await?;
@@ -98,7 +100,7 @@ pub async fn logout(
 
 pub async fn create_address(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
     Json(address): Json<models::Address>,
 ) -> Result<String, (StatusCode, String)> {
@@ -127,7 +129,7 @@ pub async fn create_address(
 
 pub async fn add_personal_info(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
     Json(personal_info): Json<models::PersonalInfo>,
 ) -> Result<String, (StatusCode, String)> {
@@ -182,7 +184,7 @@ pub async fn add_personal_info(
 
 pub async fn add_to_cart(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
     Json(cart_item): Json<models::CartItem>,
 ) -> Result<String, (StatusCode, String)> {
@@ -239,7 +241,7 @@ pub async fn add_to_cart(
 
 pub async fn create_order(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
 ) -> Result<String, (StatusCode, String)> {
     let authed_user_id =

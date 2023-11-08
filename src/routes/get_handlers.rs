@@ -14,6 +14,8 @@ use crate::routes::map_db_error;
 use crate::utils::auth;
 use crate::utils::models;
 
+use super::ActiveUsers;
+
 pub async fn get_products(
     Extension(db_pool): Extension<Pool<Sqlite>>,
 ) -> Result<Json<Vec<models::Product>>, (StatusCode, String)> {
@@ -40,7 +42,7 @@ pub async fn get_products(
 
 pub async fn get_addresses(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
 ) -> Result<Json<Vec<models::Address>>, (StatusCode, String)> {
     let authed_user_id =
@@ -68,7 +70,7 @@ pub async fn get_addresses(
 
 pub async fn get_personal_info(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
 ) -> Result<Json<models::PersonalInfo>, (StatusCode, String)> {
     let authed_user_id =
@@ -97,7 +99,7 @@ pub async fn get_personal_info(
 
 pub async fn get_cart(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
 ) -> Result<Json<Vec<models::DisplayCartItem>>, (StatusCode, String)> {
     let authed_user_id =
@@ -125,7 +127,7 @@ pub async fn get_cart(
 
 // pub async fn get_orders(
 //     Extension(db_pool): Extension<Pool<Sqlite>>,
-//     Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+//     Extension(active_users): Extension<ActiveUsers>,
 //     authorization: TypedHeader<Authorization<Bearer>>,
 // ) -> Result<Json<Vec<models::Order>>, (StatusCode, String)> {
 //     let authed_user_id =
@@ -154,7 +156,7 @@ pub async fn get_cart(
 
 pub async fn get_order_items(
     Extension(db_pool): Extension<Pool<Sqlite>>,
-    Extension(active_users): Extension<Arc<Mutex<HashMap<String, String>>>>,
+    Extension(active_users): Extension<ActiveUsers>,
     authorization: TypedHeader<Authorization<Bearer>>,
     Path(order_id): Path<i64>,
 ) -> Result<Json<Vec<models::OrderItem>>, (StatusCode, String)> {

@@ -24,7 +24,7 @@ async fn run() {
         .expect("Unable to start the Axum webserver");
 }
 
-fn shutdown_signal() {
+async fn shutdown_signal() {
     tokio::signal::ctrl_c()
         .await
         .expect("Expect Tokio signal ctrl-c");

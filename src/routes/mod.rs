@@ -16,6 +16,8 @@ use tower_http::{
     services::ServeDir,
 };
 
+pub type ActiveUsers = Arc<Mutex<HashMap<String, String>>>;
+
 pub async fn create_router() -> Router {
     // Create the database pool
     let db_pool = create_db_pool().await;

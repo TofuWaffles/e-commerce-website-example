@@ -3,11 +3,11 @@ use sqlx::{Pool, Sqlite};
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::Mutex;
 
-use crate::utils::jwt;
+use crate::{utils::jwt, routes::ActiveUsers};
 
 pub async fn authenticate_user(
     token: String,
-    active_users: Arc<Mutex<HashMap<String, String>>>,
+    active_users: ActiveUsers,
 ) -> Result<String, (StatusCode, String)> {
     jwt::is_valid(&token)?;
 
@@ -22,7 +22,7 @@ pub async fn authenticate_user(
 
 pub async fn remove_active_user(
     token: String,
-    active_users: Arc<Mutex<HashMap<String, String>>>,
+    active_users: ActiveUsers,
 ) -> Result<(), (StatusCode, String)> {
     match active_users.lock().await.remove(&token) {
         Some(_) => Ok(()),
