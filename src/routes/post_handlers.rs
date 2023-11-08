@@ -1,5 +1,5 @@
 use axum::{
-    extract::{Extension},
+    extract::Extension,
     headers::{authorization::Bearer, Authorization},
     http::StatusCode,
     Json, TypedHeader,
@@ -322,13 +322,13 @@ pub async fn create_order(
     .await
     .map_err(map_db_error)?;
 
-    sqlx::query!(
-        "DELETE FROM cart_items WHERE user_id = $1",
-        authed_user_id,
-    )
-    .execute(&db_pool)
-    .await
-    .map_err(map_db_error)?;
+    sqlx::query!("DELETE FROM cart_items WHERE user_id = $1", authed_user_id,)
+        .execute(&db_pool)
+        .await
+        .map_err(map_db_error)?;
 
-    Ok(format!("Order created successfully. Order ID: {}", new_order_id))
+    Ok(format!(
+        "Order created successfully. Order ID: {}",
+        new_order_id
+    ))
 }

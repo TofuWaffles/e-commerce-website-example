@@ -7,7 +7,10 @@ use axum::{
     routing::{get, get_service, post},
     Router,
 };
-use http::{Method, header::{AUTHORIZATION, ACCEPT, CONTENT_TYPE}};
+use http::{
+    header::{ACCEPT, AUTHORIZATION, CONTENT_TYPE},
+    Method,
+};
 use sqlx::{migrate::MigrateDatabase, sqlite::SqlitePoolOptions, Pool, Sqlite};
 use std::{collections::HashMap, env, sync::Arc};
 use tokio::sync::Mutex;

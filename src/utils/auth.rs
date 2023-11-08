@@ -3,7 +3,7 @@ use sqlx::{Pool, Sqlite};
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::Mutex;
 
-use crate::{utils::jwt, routes::ActiveUsers};
+use crate::{routes::ActiveUsers, utils::jwt};
 
 pub async fn authenticate_user(
     token: String,

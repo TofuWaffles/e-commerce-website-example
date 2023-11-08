@@ -22,7 +22,9 @@ pub fn create_jwt() -> Result<String, (StatusCode, String)> {
     let exp = now.timestamp() as usize;
     let claims = Claims { exp, iat };
 
-    let EncodeDecode::Encode(key) = get_secret_key(true) else { unreachable!() };
+    let EncodeDecode::Encode(key) = get_secret_key(true) else {
+        unreachable!()
+    };
 
     let token = encode(&Header::default(), &claims, &key);
 
@@ -36,7 +38,9 @@ pub fn create_jwt() -> Result<String, (StatusCode, String)> {
 }
 
 pub fn is_valid(token: &str) -> Result<(), (StatusCode, String)> {
-    let EncodeDecode::Decode(key) = get_secret_key(false) else { unreachable!() };
+    let EncodeDecode::Decode(key) = get_secret_key(false) else {
+        unreachable!()
+    };
 
     decode::<Claims>(token, &key, &Validation::new(Algorithm::HS256)).map_err(
         |error| match error.kind() {

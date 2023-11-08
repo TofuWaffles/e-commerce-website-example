@@ -136,7 +136,7 @@ pub async fn get_cart(
 //     let orders = sqlx::query_as!(
 //         models::Order,
 //         r#"
-//         SELECT 
+//         SELECT
 //         orders.order_id,
 //         orders.creation_time AS "creation_time: NaiveDateTime",
 //         orders.total_cost,
