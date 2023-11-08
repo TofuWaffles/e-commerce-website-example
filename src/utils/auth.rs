@@ -1,7 +1,5 @@
 use axum::http::StatusCode;
 use sqlx::{Pool, Sqlite};
-use std::{collections::HashMap, sync::Arc};
-use tokio::sync::Mutex;
 
 use crate::{routes::ActiveUsers, utils::jwt};
 

@@ -7,9 +7,6 @@ use axum::{
 use chrono::Local;
 use pwhash::bcrypt;
 use sqlx::{Pool, Sqlite};
-use std::collections::HashMap;
-use std::sync::Arc;
-use tokio::sync::Mutex;
 
 use crate::routes::map_db_error;
 use crate::utils::auth;

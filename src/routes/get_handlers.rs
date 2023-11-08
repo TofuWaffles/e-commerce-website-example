@@ -1,5 +1,3 @@
-use std::{collections::HashMap, sync::Arc};
-
 use axum::{
     extract::Path,
     headers::{authorization::Bearer, Authorization},
@@ -8,7 +6,6 @@ use axum::{
 
 use http::StatusCode;
 use sqlx::{Pool, Sqlite};
-use tokio::sync::Mutex;
 
 use crate::routes::map_db_error;
 use crate::utils::auth;

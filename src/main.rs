@@ -6,7 +6,7 @@ use std::net::SocketAddr;
 
 #[tokio::main]
 async fn main() {
-    run();
+    run().await;
 }
 
 async fn run() {
